@@ -26,14 +26,15 @@ public class SubjectData {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/students_db", "root", "Imesh#14681");
             Statement s = c.createStatement();
-            ResultSet rs = s.executeQuery("SELECT `grade`,`teacherSubID`,`subjectName`,`TfirstName` FROM \n"
-                    + "`subjects_in_grades` JOIN `teachers_has_subjects`\n"
-                    + " ON `subjects_in_grades`.`gradeSubID`= `teachers_has_subjects`.`subject`\n"
-                    + "JOIN `teachers` ON `teachers_has_subjects`.`teacher`=`teachers`.`TNIC`\n"
-                    + "JOIN `subject` ON `subjects_in_grades`.`subjectID`=`subject`.`id` WHERE `grade`='"+grade+"' ");
+            ResultSet rs = s.executeQuery("""
+                                          SELECT * FROM 
+                                          `subjects_in_grades` JOIN `teachers_has_subjects`
+                                           ON `subjects_in_grades`.`gradeSubID`= `teachers_has_subjects`.`subject`
+                                          JOIN `teachers` ON `teachers_has_subjects`.`teacher`=`teachers`.`TNIC`
+                                          JOIN `subject` ON `subjects_in_grades`.`subjectID`=`subject`.`id` WHERE `grade`='"""+grade+"' ");
             
             while(rs.next()){
-                Subject sub= new Subject(rs.getString("subjectName"),rs.getString("grade"),rs.getString("TfirstName"),rs.getString("teacherSubID"));
+                Subject sub= new Subject(rs.getString("subjectName"),rs.getString("grade"),rs.getString("TName"),rs.getString("teacherSubID"));
                 subjects.add(sub);
             }
             

@@ -4,11 +4,10 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
-import model.LoadData;
 import panel.Dashboard;
 import panel.Students;
 import panel.Teachers;
-import panel.Units;
+import panel.Subject;
 
 public class Home extends javax.swing.JFrame {
 
@@ -27,20 +26,20 @@ public class Home extends javax.swing.JFrame {
         return home;
     }
 
-    public static CardLayout cardLayout;
+    public CardLayout cardLayout;
     private Students students;
     private Teachers teachers;
-    private Units units;
+    private Subject units;
     private Dashboard dashboard;
-    private static JButton previousbtn;
+    private JButton previousbtn;
 
-    public static void activebtn(JButton activebtn) {
+    public void activebtn(JButton activebtn) {
         resetPreviousbtn();
         activebtn.setBackground(new Color(15, 50, 95, 255));
         previousbtn = activebtn;
     }
 
-    public static void resetPreviousbtn() {
+    public  void resetPreviousbtn() {
         if (previousbtn != null) {
             previousbtn.setBackground(new Color(21, 65, 106, 255));
         }
@@ -53,7 +52,7 @@ public class Home extends javax.swing.JFrame {
 
         students = new Students();
         teachers = new Teachers();
-        units = new Units();
+        units = new Subject();
         dashboard = new Dashboard();
 
         mainPanel.add(students, "Students");

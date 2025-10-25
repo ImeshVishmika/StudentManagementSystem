@@ -49,6 +49,6 @@ public class Student {
     }
 
     public List<Subject> getSubjects() {
-        return subjects;
+        return new ArrayList<>(subjects);
     }
 }

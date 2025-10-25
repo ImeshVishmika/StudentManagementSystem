@@ -6,12 +6,12 @@ import javax.swing.table.DefaultTableModel;
 import model.StudentData;
 import model.Student;
 
-public class Students extends javax.swing.JPanel {
+public class Subject extends javax.swing.JPanel {
 
     public DefaultTableModel model;
     public StudentData data = new StudentData();
 
-    public Students() {
+    public Subject() {
         initComponents();
         this.model = (DefaultTableModel) jTable1.getModel();
         loadTable();
@@ -63,7 +63,7 @@ public class Students extends javax.swing.JPanel {
 
             },
             new String [] {
-                "NIC", "First Name", "Last Name", "Email", "Gender"
+                "", "First Name", "Last Name", "Email", "Gender"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -90,7 +90,7 @@ public class Students extends javax.swing.JPanel {
         }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel1.setText("Students");
+        jLabel1.setText("Units");
 
         search.setBackground(new java.awt.Color(0, 204, 255));
         search.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,7 +152,7 @@ public class Students extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
