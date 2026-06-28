@@ -21,6 +21,11 @@ public class Subject {
         this.teachersName=teachersName;
         this.teacherSubID=teacherSubID;
     }
+    
+    public Subject(String subjectName,String grade){
+        this.subjectName=subjectName;
+        this.grade=grade;
+    }
 
     public String getSubjectName() {
         return subjectName;

@@ -4,12 +4,16 @@
  */
 package model;
 
+import connection.DB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.Student;
+import dto.Student;
+import dto.Subject;
 
 public class StudentData {
+
+    DB db = new DB();
 
     private String q = "SELECT * FROM `student`";
 
@@ -18,17 +22,12 @@ public class StudentData {
         String count = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/students_db", "root", "Imesh#14681");
-            Statement s = c.createStatement();
-            ResultSet rs = s.executeQuery("SELECT COUNT(*) FROM `student`");
+            ResultSet rs = db.search("SELECT COUNT(*) FROM `student`");
             rs.next();
             count = String.valueOf(rs.getInt("COUNT(*)"));
             rs.close();
-            s.close();
-            c.close();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -53,21 +52,16 @@ public class StudentData {
         }
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/students_db", "root", "Imesh#14681");
-            Statement s = c.createStatement();
-            System.out.println(q);
-            ResultSet rs = s.executeQuery(q);
+
+            ResultSet rs = db.search(q);
             while (rs.next()) {
-                Student st = new Student(rs.getString("NIC"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"),rs.getString("genderID"),null);
+                Student st = new Student(rs.getString("NIC"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("email"), rs.getString("genderID"), null);
                 students.add(st);
             }
             q = "SELECT * FROM `student`";
             rs.close();
-            s.close();
-            c.close();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -75,18 +69,7 @@ public class StudentData {
     }
 
     public void deleteData(String nic) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Students_db", "root", "Imesh#14681");
-            Statement s = c.createStatement();
-            s.executeUpdate("DELETE FROM `student` WHERE `NIC`='" + nic + "' ");
-            s.close();
-            c.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        db.iud("DELETE FROM `student` WHERE `NIC`='" + nic + "' ");
     }
 
     public boolean addData(Student s) {
@@ -95,42 +78,28 @@ public class StudentData {
         String firstName = s.getFirstName();
         String lastName = s.getLastName();
         String email = s.getEmail();
-        String gender=s.getGender();
-        List<Subject> subjects=s.getSubjects();
-        int success=0;
+        String gender = s.getGender();
+        List<Subject> subjects = s.getSubjects();
+        int success = 0;
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Students_db", "root", "Imesh#14681");
-            Statement st = c.createStatement();
-            success=st.executeUpdate("INSERT INTO `student`(`NIC`,`firstName`,`lastName`,`email`,`genderID`) "
-                    + "VALUES('" + nic + "','" + firstName + "','" + lastName + "','" + email + "','"+gender+"')");
-            
-            for(Subject sub:subjects){
-                success=st.executeUpdate("INSERT INTO `student_enrollment`(`student_NIC`,`teachersSubID`) VALUES('"+nic+"','"+sub.getTeacherSubID()+"')");
-            }
-            
+        db.iud("INSERT INTO `student`(`NIC`,`firstName`,`lastName`,`email`,`genderID`) "
+                + "VALUES('" + nic + "','" + firstName + "','" + lastName + "','" + email + "','" + gender + "')");
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        for (Subject sub : subjects) {
+            db.iud("INSERT INTO `student_enrollment`(`student_NIC`,`teachersSubID`) VALUES('" + nic + "','" + sub.getTeacherSubID() + "')");
         }
-        
-        return success>0;
+
+        return success > 0;
     }
 
     public boolean verifyData(String nic, String email) {
-        boolean data=false;
+        boolean data = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Students_db", "root", "Imesh#14681");
-            Statement st = c.createStatement();
-            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM `student` WHERE `NIC`='" + nic + "' OR `email`='" + email + "' ");
+            ResultSet rs = db.search("SELECT COUNT(*) FROM `student` WHERE `NIC`='" + nic + "' OR `email`='" + email + "' ");
             rs.next();
             data = rs.getString("COUNT(*)").equals("0");
-            
-            
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

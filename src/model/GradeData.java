@@ -4,6 +4,7 @@
  */
 package model;
 
+import connection.DB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +13,20 @@ import java.util.List;
  * @author USER
  */
 public class GradeData {
+    
+      DB db = new DB();
 
-    public List<GradesComboItems> loadData() {
-        List<GradesComboItems> grades=new ArrayList<>();
-        
+    public List<ComboItem> loadData() {
+        List<ComboItem> grades=new ArrayList<>();
+       
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/students_db", "root", "Imesh#14681");
-            Statement s = c.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM `grade`");
+            ResultSet rs = db.search("SELECT * FROM `grade`");
             while (rs.next()) {
-                     GradesComboItems i=new GradesComboItems(rs.getString("gradeName"),rs.getString("gradeNo"));  
+                     ComboItem i=new ComboItem(rs.getString("gradeName"),rs.getString("gradeNo"));  
                      grades.add(i);
             }
-            
-            
-
-        } catch (ClassNotFoundException | SQLException e) {
+           
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         

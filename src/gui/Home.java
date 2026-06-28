@@ -7,15 +7,22 @@ import javax.swing.JButton;
 import panel.Dashboard;
 import panel.Students;
 import panel.Teachers;
-import panel.Subject;
+import panel.SubjectPanel;
+import panel.SchedulePanel;
 
 public class Home extends javax.swing.JFrame {
 
     private static Home home;
+    public CardLayout cardLayout;
+    private Students students;
+    private Teachers teachers;
+    private SubjectPanel units;
+    private Dashboard dashboard;
+    private JButton previousbtn;
+    private SchedulePanel schedule;
 
     private Home() {
         initComponents();
-        //new LoadData("imesh");
         loadPanels();
     }
 
@@ -25,13 +32,6 @@ public class Home extends javax.swing.JFrame {
         }
         return home;
     }
-
-    public CardLayout cardLayout;
-    private Students students;
-    private Teachers teachers;
-    private Subject units;
-    private Dashboard dashboard;
-    private JButton previousbtn;
 
     public void activebtn(JButton activebtn) {
         resetPreviousbtn();
@@ -52,13 +52,15 @@ public class Home extends javax.swing.JFrame {
 
         students = new Students();
         teachers = new Teachers();
-        units = new Subject();
+        units = new SubjectPanel();
         dashboard = new Dashboard();
+        schedule = new SchedulePanel();
 
         mainPanel.add(students, "Students");
         mainPanel.add(teachers, "Teachers");
         mainPanel.add(dashboard, "Dashboard");
         mainPanel.add(units, "Units");
+        mainPanel.add(schedule,"Schedule");
 
         dashboardbtn.doClick();
     }
@@ -90,6 +92,7 @@ public class Home extends javax.swing.JFrame {
         unitsbtn = new javax.swing.JButton();
         teachersbtn = new javax.swing.JButton();
         studentbtn = new javax.swing.JButton();
+        scheduleBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
 
@@ -107,7 +110,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel2.setBackground(javax.swing.UIManager.getDefaults().getColor("List.cellFocusColor"));
         jPanel2.setForeground(new java.awt.Color(0, 50, 232));
-        jPanel2.setLayout(new java.awt.GridLayout(4, 1));
+        jPanel2.setLayout(new java.awt.GridLayout(5, 1));
 
         dashboardbtn.setBackground(javax.swing.UIManager.getDefaults().getColor("List.cellFocusColor"));
         dashboardbtn.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -157,6 +160,18 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel2.add(studentbtn);
 
+        scheduleBtn.setBackground(javax.swing.UIManager.getDefaults().getColor("List.cellFocusColor"));
+        scheduleBtn.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        scheduleBtn.setForeground(new java.awt.Color(255, 255, 255));
+        scheduleBtn.setText("Schedule");
+        scheduleBtn.setBorder(null);
+        scheduleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scheduleBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(scheduleBtn);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(213, 228, 255));
         jLabel1.setText("Imesh");
@@ -191,7 +206,7 @@ public class Home extends javax.swing.JFrame {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addGap(0, 519, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,6 +250,10 @@ public class Home extends javax.swing.JFrame {
         showPanel("Dashboard", dashboardbtn);
     }//GEN-LAST:event_dashboardbtnActionPerformed
 
+    private void scheduleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleBtnActionPerformed
+        showPanel("Schedule",scheduleBtn);
+    }//GEN-LAST:event_scheduleBtnActionPerformed
+
     public static void main(String args[]) {
         FlatLightLaf.setup();
 
@@ -252,6 +271,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JButton scheduleBtn;
     private javax.swing.JButton studentbtn;
     private javax.swing.JButton teachersbtn;
     private javax.swing.JButton unitsbtn;

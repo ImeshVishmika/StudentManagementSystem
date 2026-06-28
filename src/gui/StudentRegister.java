@@ -9,11 +9,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import model.GradeData;
-import model.GradesComboItems;
-import model.Student;
-import model.StudentData;
-import model.Subject;
+import model.ComboItem;
+
+import dto.Student;
+import dto.Subject;
+
 import model.SubjectData;
+import model.StudentData;
 
 public class StudentRegister extends javax.swing.JFrame {
 
@@ -29,9 +31,9 @@ public class StudentRegister extends javax.swing.JFrame {
     }
 
     private void LoadGrades() {
-        List<GradesComboItems> g = grades.loadData();
-        DefaultComboBoxModel<GradesComboItems> model = new DefaultComboBoxModel<>();
-        for (GradesComboItems item : g) {
+        List<ComboItem> g = grades.loadData();
+        DefaultComboBoxModel<ComboItem> model = new DefaultComboBoxModel<>();
+        for (ComboItem item : g) {
             model.addElement(item);
         }
 
@@ -532,7 +534,7 @@ public class StudentRegister extends javax.swing.JFrame {
 
     private void gradeListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeListActionPerformed
         subPanel.removeAll();
-        GradesComboItems s = (GradesComboItems) gradeList.getSelectedItem();
+        ComboItem s = (ComboItem) gradeList.getSelectedItem();
         LoadSubjects(s.getValue());
         subPanel.revalidate();
         subPanel.repaint();
@@ -564,7 +566,7 @@ public class StudentRegister extends javax.swing.JFrame {
     private javax.swing.JPanel firstNamePanel;
     private javax.swing.ButtonGroup genderItems;
     private javax.swing.JPanel genderPanel;
-    private javax.swing.JComboBox<GradesComboItems> gradeList;
+    private javax.swing.JComboBox<model.ComboItem> gradeList;
     private javax.swing.JPanel gradePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

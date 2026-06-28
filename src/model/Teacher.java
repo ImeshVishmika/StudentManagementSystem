@@ -4,32 +4,59 @@
  */
 package model;
 
+import java.util.List;
+import dto.Subject;
+
 /**
  *
  * @author USER
  */
 public class Teacher {
     private String nic;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String gender;
-    private String subject;
-
-    public Teacher(String nic, String name, String email, String gender) {
+    private List<Subject> subjectList;
+    
+     public Teacher(String nic, String firstName,String lastName, String email, String gender) {
         this.nic = nic;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender; 
+    }
+
+    public Teacher(String nic, String firstName,String lastName, String email, String gender,List<Subject> subjectList) {
+        this.nic = nic;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.gender = gender;
-       
+        this.subjectList = subjectList;  
     }
 
     public String getNic() {
         return nic;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+   
 
     public String getEmail() {
         return email;
@@ -39,9 +66,15 @@ public class Teacher {
         return gender;
     }
 
-    public String getSubject() {
-        return subject;
+    public List<Subject> getSubjectList() {
+        return subjectList;
     }
+
+    public void setSubjectList(List<Subject> subjectList) {
+        this.subjectList = subjectList;
+    }
+
+   
     
     
 }

@@ -6,6 +6,9 @@ package gui;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLightLaf;
+import connection.DB;
+import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -13,9 +16,7 @@ import com.formdev.flatlaf.FlatLightLaf;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    DB db = new DB();
     public Login() {
         initComponents();
         init();
@@ -46,6 +47,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         imgLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,7 +113,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailField)
+                .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -126,28 +128,40 @@ public class Login extends javax.swing.JFrame {
 
         imgLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jLabel3.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
+        jLabel3.setText("Welcome");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(90, 90, 90))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 57, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(35, 35, 35)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,35 +184,30 @@ public class Login extends javax.swing.JFrame {
         String email = emailField.getText();
         String pw = String.valueOf(pwField.getPassword());
 
-//        if (email.isEmpty() || pw.isEmpty()) {
-//            if (email.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Email Field is Empty", "Error Message", JOptionPane.ERROR_MESSAGE);
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Password Field is Empty", "Error Message", JOptionPane.ERROR_MESSAGE);
-//            }
-//
-//        } else {
-//            try {
-//
-//                Class.forName("com.mysql.cj.jdbc.Driver");
-//                Connection c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Students_db", "root", "Imesh#14681");
-//                Statement s = c.createStatement();
-//                //s.executeUpdate("INSERT INTO `student`(`email`,`user_name`,`password`) VALUES('"+email+"','j','"+pw+"') ");
-//
-//                ResultSet rs = s.executeQuery("SELECT * FROM `student` WHERE `email`='" + email + "' AND `password`='" + pw + "'");
-//
-//                if (!rs.next()) {
-//                    JOptionPane.showMessageDialog(this, "Invalid details", "Error Message", JOptionPane.ERROR_MESSAGE);
-//                } else {
-//                    
+        if (email.isEmpty() || pw.isEmpty()) {
+            if (email.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Email Field is Empty", "Error Message", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Password Field is Empty", "Error Message", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            try {
+
+                ResultSet rs = db.search("SELECT * FROM `user` WHERE `userName`='" + email + "' AND `password`='" + pw + "'");
+
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Invalid details", "Error Message", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    
                       Home.getHome().setVisible(true);
                       this.dispose();
-//                }
-//
-//            } catch (ClassNotFoundException | SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -224,6 +233,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField pwField;
