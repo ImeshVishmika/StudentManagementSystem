@@ -241,28 +241,33 @@ erDiagram
 
 ## Screenshots
 
-This section is intended for the project UI screenshots.
+Below are the key user interface screens from the project, stored in the `docs/images` folder.
 
-```text
-screenshots/
-├── login.png
-├── dashboard.png
-├── students.png
-├── teachers.png
-├── subjects.png
-├── schedule.png
-```
+### Login and Dashboard
 
-Add screenshots to the `screenshots/` folder and update this area with the actual images for documentation purposes.
+![Welcome Screen](docs/images/welcome.png)
 
-### Example Screen Collection
+![Dashboard](docs/images/dashboard.png)
 
-- Login screen
-- Dashboard summary page
-- Student registration and list view
-- Teacher management page
-- Subject management page
-- Schedule planner view
+### Student Management
+
+![Students Panel](docs/images/students.png)
+
+![Student Registration](docs/images/student%20register.png)
+
+### Teacher Management
+
+![Teachers Panel](docs/images/teachers.png)
+
+![Teacher Registration](docs/images/teacher%20register.png)
+
+### Subject and Schedule Management
+
+![Subjects Panel](docs/images/subject.png)
+
+![Schedule Panel](docs/images/schedule.png)
+
+![Schedule Registration](docs/images/schedule%20register.png)
 
 ## How to Setup the Project
 
